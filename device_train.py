@@ -27,8 +27,6 @@ def parse_args():
     parser = argparse.ArgumentParser(description="""
     To use, download the full checkpoint archive, extract and upload to a GCS bucket, and set that as --tune-model-path
     Modify the config file:
-        - set `model_dir` to where the checkpoints should be written during training
-        - set `train_set`, `val_set` to index files for your data
         - set `tpu_size` to 8 (if on a v3-8)
         - set `warmup_steps`, `anneal_steps`, `lr`, `end_lr` to the lr schedule for your finetuning run
         - the global step will reset to 0, keep that in mind when writing your lr schedule
@@ -38,6 +36,8 @@ def parse_args():
     """,
     formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("--config", type=str, default=None, help="Config file location")
+    parser.add_argument("--model-dir", type=str, default=None, help="Output directory")
+    parser.add_argument("--train-set", type=str, default=None, help="Training files location")
     parser.add_argument("--tune-model-path", type=str, default=None, help="Base model to finetune")
     parser.add_argument("--fresh-opt", default=False, action="store_true", help="Use a newly initialized optimizer, ignoring any optimizer state saved in the base checkpoint")
 
@@ -133,7 +133,7 @@ if __name__ == "__main__":
 
     assert cores_per_replica <= 8
 
-    model_dir = params["model_dir"]
+    model_dir = args.model_dir
     layers = params["layers"]
     d_model = params["d_model"]
     n_heads = params["n_heads"]
@@ -145,7 +145,6 @@ if __name__ == "__main__":
     val_every = params["val_every"]
     ckpt_every = params["ckpt_every"]
     keep_every = params["keep_every"]
-    eval_tasks = params["eval_harness_tasks"]
     total_steps = params["total_steps"]
 
     pe = params["pe"]
@@ -217,7 +216,7 @@ if __name__ == "__main__":
     # set up datasets
     print("setting up datasets")
 
-    train_dataset = TFRecordNewInputs(f"data/{params['train_set']}",
+    train_dataset = TFRecordNewInputs(f"{args.train_set}",
                                       batch_size=(
                                           gradient_accumulation_steps,
                                           per_replica_batch * tpu_size // cores_per_replica),
