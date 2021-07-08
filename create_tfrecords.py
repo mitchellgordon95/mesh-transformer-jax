@@ -150,7 +150,7 @@ def get_files(input_dir, filetypes=None):
     # gets all files of <filetypes> in input_dir
     if filetypes == None:
         filetypes = ["jsonl.zst", ".txt", ".xz", ".tar.gz"]
-    files = [list(Path(input_dir).glob(f"*{ft}")) for ft in filetypes]
+    files = [list(Path(input_dir).glob(f"**/*{ft}")) for ft in filetypes]
     # flatten list of list -> list and stringify Paths
     flattened_list = [str(item) for sublist in files for item in sublist]
     if not flattened_list:
