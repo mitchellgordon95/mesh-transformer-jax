@@ -45,7 +45,7 @@ def parse_args():
     return args
 
 
-def save(network, step, path, mp, aux=None, keep_n=3, delete_old=True):
+def save(network, step, path, mp, aux=None, keep_n=1, delete_old=True):
     assert path
     client = storage.Client()
 
@@ -149,7 +149,6 @@ if __name__ == "__main__":
     val_batches = params["val_batches"]
     val_every = params["val_every"]
     ckpt_every = params["ckpt_every"]
-    keep_every = params["keep_every"]
     total_steps = params["total_steps"]
 
     pe = params["pe"]
