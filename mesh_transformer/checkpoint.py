@@ -1,6 +1,7 @@
 import functools
 import io
 import time
+import os
 
 import jax
 import jax.numpy as jnp
@@ -19,6 +20,10 @@ def index_weights(weights, idx):
 
 
 def write(x, ckpt_dir):
+    try:
+        os.makedirs(ckpt_dir)
+    except:
+        pass
     # start = time.time()
     idx, i = x
     file_path = ckpt_dir + f"{idx}.npz"
