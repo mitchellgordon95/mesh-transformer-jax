@@ -250,7 +250,7 @@ if __name__ == "__main__":
 
             start = time.time()
             # TODO (mitchg) shouldn't this detect the number of input shards automatically?
-            network.state = read_ckpt(network.state, initial_ckpt_state_path, shards_in=8, shards_out=devices.shape[1], load_opt=(not args.fresh_opt))
+            network.state = read_ckpt(network.state, initial_ckpt_state_path, devices.shape[1], load_opt=(not args.fresh_opt))
 
             if fine_tuning:
                 # overwrite the loaded scheduler step with zeros
