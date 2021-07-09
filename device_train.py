@@ -49,6 +49,11 @@ def save(network, step, path, mp, aux=None, keep_n=3, delete_old=True):
     assert path
     client = storage.Client()
 
+    try:
+        os.makedirs(f"{path}/step_{step}")
+    except:
+        pass
+
     if aux is None:
         aux = {}
 
