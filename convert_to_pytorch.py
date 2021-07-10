@@ -5,6 +5,7 @@ import jax.numpy as jnp
 import io
 import os
 import sys
+from smart_open import open
 
 torch.set_printoptions(linewidth=130, sci_mode=False)
 np.set_printoptions(linewidth=130, suppress=True)
