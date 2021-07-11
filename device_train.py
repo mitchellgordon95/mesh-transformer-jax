@@ -45,7 +45,7 @@ def parse_args():
     return args
 
 
-def save(network, step, path, mp, aux=None, keep_n=1, delete_old=True):
+def save(network, step, path, mp, aux=None, keep_n=2, delete_old=True):
     assert path
     client = storage.Client()
 
