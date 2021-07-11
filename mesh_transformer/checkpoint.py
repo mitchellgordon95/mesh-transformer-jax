@@ -20,10 +20,12 @@ def index_weights(weights, idx):
 
 
 def write(x, ckpt_dir):
-    try:
-        os.makedirs(ckpt_dir)
-    except:
-        pass
+
+    if not ckpt_dir.startswith("gs://"):
+        try:
+            os.makedirs(ckpt_dir)
+        except:
+            pass
     # start = time.time()
     idx, i = x
     file_path = ckpt_dir + f"{idx}.npz"
