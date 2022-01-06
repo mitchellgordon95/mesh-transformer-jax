@@ -8,7 +8,7 @@ requests~=2.25.1
 fabric~=2.6.0
 optax==0.0.6
 git+https://github.com/deepmind/dm-haiku
-git+https://github.com/EleutherAI/lm-evaluation-harness/
+git+git://github.com/EleutherAI/lm-evaluation-harness.git@e35386d9ab3ed2f400da718a26fc8ce6c0595a7f
 ray~=1.4.1
 jax~=0.2.12
 Flask~=1.1.2
